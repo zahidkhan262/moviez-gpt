@@ -1,17 +1,17 @@
 # React + TypeScript + Vite
 
-# Create vite app movie-gpt (done)
-# configuration tailwind css
-# Routing (react-router-dom)
-# Login and Register
-# Form Validation (by using useRef)
-# Firebase configuration
-# make .env file
-# make registeration API with firebase
-# make login API with firebase
-# make logout API with firebase
-# make update user API with firebase
-# deploy the code on github and firebase
+- Create vite app movie-gpt (done)
+- configuration tailwind css
+- Routing (react-router-dom)
+- Login and Register
+- Form Validation (by using useRef)
+- Firebase configuration
+- make .env file
+- make registeration API with firebase
+- make login API with firebase
+- make logout API with firebase
+- make update user API with firebase
+- deploy the code on github and firebase
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

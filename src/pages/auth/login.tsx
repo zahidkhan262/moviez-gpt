@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
 import { checkValidation } from '../../utils/validate';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../utils/firebase';
 
 const BG: string = 'https://assets.nflxext.com/ffe/siteui/vlv3/21a8ba09-4a61-44f8-8e2e-70e949c00c6f/6678e2ea-85e8-4db2-b440-c36547313109/IN-en-20240722-POP_SIGNUP_TWO_WEEKS-perspective_WEB_3457a8b1-284d-4bb5-979e-2a2e9bb342b3_medium.jpg'
 
@@ -14,10 +15,32 @@ const Login: React.FC = () => {
 
     const handleToggle = () => setIsLogin((prev: boolean) => !prev);
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        console.log("submit")
         const message: string | null = checkValidation(email.current.value, password.current.value);
-        setError(message)
-        console.log(message, "message")
+        setError(message);
+
+        if (!isLogin) {
+            //  signup user here
+            const response = await createUserWithEmailAndPassword(auth, email.current.value, password.current.value);
+            if (response?.user?.uid) {
+                setIsLogin(true)
+            }
+
+        } else {
+            //  login user here
+            const response = await signInWithEmailAndPassword(auth, email.current.value, password.current.value);
+            const accessToken: any = response.user && response.user.accessToken;
+            const currentUser = {
+                username: response.user.displayName,
+                email: response.user.email,
+                userid: response.user.uid
+            }
+            localStorage.setItem('AUTH_TOKEN', accessToken);
+            localStorage.setItem('AUTH_USER', JSON.stringify(currentUser))
+            console.log(response, "login")
+        }
+
     }
 
     return (
